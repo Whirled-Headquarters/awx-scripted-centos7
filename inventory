@@ -1,4 +1,4 @@
-localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python3"
+localhost ansible_connection=local ansible_python_interpreter="/bin/python3"
 
 [all:vars]
 
@@ -60,13 +60,13 @@ dockerhub_base=ansible
 # Common Docker parameters
 awx_task_hostname=awx
 awx_web_hostname=awxweb
-postgres_data_dir="~/.awx/pgdocker"
+postgres_data_dir="/var/lib/awx/pgdocker"
 host_port=80
 host_port_ssl=443
 #ssl_certificate=
 # Optional key file
 #ssl_certificate_key=
-docker_compose_dir="~/.awx/awxcompose"
+docker_compose_dir="/tmp/awxcompose"
 
 # Required for Openshift when building the image on your own
 # Optional for Openshift if using Dockerhub or another prebuilt registry
@@ -107,7 +107,7 @@ pg_port=5432
 # This will create or update a default admin (superuser) account in AWX, if not provided
 # then these default values are used
 admin_user=admin
-admin_password=password
+admin_password=notpassword
 
 # Whether or not to create preload data for demonstration purposes
 create_preload_data=True
@@ -131,11 +131,11 @@ secret_key=awxsecret
 # Set the awx_task and awx_web containers' search domain(s)
 #awx_container_search_domains=example.com,ansible.com
 # Alternate DNS servers
-#awx_alternate_dns_servers="10.1.2.3,10.2.3.4"
+awx_alternate_dns_servers="1.1.1.1,8.8.8.8"
 
 # AWX project data folder. If you need access to the location where AWX stores the projects
 # it manages from the docker host, you can set this to turn it into a volume for the container.
-#project_data_dir=/var/lib/awx/projects
+project_data_dir=/var/lib/awx/projects
 
 # AWX custom virtual environment folder. Only usable for local install.
 #custom_venv_dir=/opt/my-envs/
