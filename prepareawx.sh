@@ -15,8 +15,8 @@ sudo yum -y install docker-ce
 # start docker service and enable service autostart at reboot
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo pip3 install docker-compose
-
+# use python3 pip to install docker-compose
+sudo pip3 install docker-compose --nobest
 # pull AWX from github repository
 sudo cd / 
 sudo git clone https://github.com/ansible/awx.git 
@@ -31,3 +31,13 @@ sudo chmod 777 /var/lib/awx/pgdocker
 sudo chmod 777 /var/lib/awx/projects 
 sudo chmod 777 /tmp/awxcompose 
 sudo chmod 777 /var/lib/awx
+# set firewall config
+sudo firewall-cmd --zone=public --add-masquerade --permanent
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --permanent --add-service=ssh
+# restart network to pickup the new rules above
+sudo systemctl restart network
+# end of this script
+# confirm no errors then
+# run ./installawx.sh next
